@@ -9,6 +9,7 @@ difficulties = ["Normal","Hard","Very hard","Overkill"]
 cancel = False
 done = False
 foundPlayers = False
+foundLobby = False
 
 def searchHeist(heist, difficulty):
     global cancel
@@ -54,29 +55,29 @@ def searchHeist(heist, difficulty):
     elif heist == heists[7]:
         heistX, heistY = 1600, 700
 
-    pyautogui.leftClick(400, 300) # Klicke auf "RAUBÜBERFÄLLE"
-    if heist in heists[2:5]: # +1 Klick auf die Scrollbar, da Heist nicht sichtbar 
+    pyautogui.leftClick(400, 300) 
+    if heist in heists[2:5]: 
         pyautogui.leftClick(871, 836)
         time.sleep(0.3)
-    elif heist in heists[5:8]: # +1 Klick auf die Scrollbar, da Heist nicht sichtbar 
+    elif heist in heists[5:8]: 
         pyautogui.leftClick(1385, 836)
         time.sleep(0.3)
-    pyautogui.leftClick(heistX, heistY) # Klicke auf entspr. Heist
-    for i in range(diffClicks): # Erhöhe auf gewählte Schwierigkeit
-        pyautogui.moveTo(diffX+1, diffY+1) # Bewegung der Maus um xy+1, damit Button klickbar ist und nicht buggt
+    pyautogui.leftClick(heistX, heistY) 
+    for i in range(diffClicks):
+        pyautogui.moveTo(diffX+1, diffY+1) 
         pyautogui.leftClick(diffX, diffY) 
-    pyautogui.leftClick(900, 800) # Klicke auf "PARTIE SUCHEN"
-    pyautogui.leftClick(400, 900) # Klicke auf "Zurück"
-    time.sleep(0.3) # Warte 0,3 Sekunden
-    pyautogui.leftClick(400,900) # Klicke auf "Zurück"
+    pyautogui.leftClick(900, 800) 
+    pyautogui.leftClick(400, 900) 
+    time.sleep(0.3) 
+    pyautogui.leftClick(400,900) 
 
 def checkForPlayers():
     global cancel
     global foundPlayers
     count = 0
-    image = pyautogui.locateOnScreen("noPlayers.png", grayscale=True, confidence=.8)
+    image = pyautogui.locateOnScreen("noPlayersInLobby.png", grayscale=True, confidence=.8)
     while image == None:
-        image = pyautogui.locateOnScreen("noPlayers.png")
+        image = pyautogui.locateOnScreen("noPlayersInLobby.png")
         print("Players in lobby?")
         time.sleep(0.5)
         count = count+1
@@ -94,15 +95,16 @@ def checkForPlayers():
         time.sleep(2)
 
 def lobbyFound():
-    image = pyautogui.locateOnScreen("lobbyFound.png")
+    image = pyautogui.locateOnScreen("foundLobby.png")
     
     while image == None:
-        image = pyautogui.locateOnScreen("lobbyFound.png", grayscale=True, confidence=.5)
+        image = pyautogui.locateOnScreen("foundLobby.png", grayscale=True, confidence=.8)
 
         if cancel == True:
             break
-
-    checkForPlayers()
+        
+    if cancel is not True:
+        checkForPlayers()
 
 def gui():
     global cancel
@@ -127,8 +129,8 @@ def gui():
             window["-DIFFICULTY-"].update(disabled=True)
             window["search"].update(disabled=True)
 
-            selected_heist = values["-HEIST-"] # Ausgewählten Heist speichern
-            selected_difficutly = values["-DIFFICULTY-"] # Ausgewählte Schwierigkeit speichern
+            selected_heist = values["-HEIST-"] 
+            selected_difficutly = values["-DIFFICULTY-"] 
             
             searchHeist(selected_heist, selected_difficutly)
 
