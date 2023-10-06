@@ -3,6 +3,7 @@ import pyautogui
 import time
 import PySimpleGUI as sg
 import threading
+import pathlib
 
 heists = ["No rest for the wicked","Road Rage","Dirty Ice","Rock the Cradle","Under the Surphaze","Gold & Sharke","99 Boxes","Touch the Sky"]
 difficulties = ["Normal","Hard","Very hard","Overkill"]
@@ -10,6 +11,7 @@ cancel = False
 done = False
 foundPlayers = False
 foundLobby = False
+path = str(pathlib.Path(__file__).parent.resolve())
 
 def searchHeist(heist, difficulty):
     global cancel
@@ -75,9 +77,9 @@ def checkForPlayers():
     global cancel
     global foundPlayers
     count = 0
-    image = pyautogui.locateOnScreen("noPlayersInLobby.png", grayscale=True, confidence=.8)
+    image = pyautogui.locateOnScreen(path+"\\noPlayersInLobby.png", grayscale=True, confidence=.8)
     while image == None:
-        image = pyautogui.locateOnScreen("noPlayersInLobby.png")
+        image = pyautogui.locateOnScreen(path+"\\noPlayersInLobby.png")
         print("Players in lobby?")
         time.sleep(0.5)
         count = count+1
@@ -95,10 +97,10 @@ def checkForPlayers():
         time.sleep(2)
 
 def lobbyFound():
-    image = pyautogui.locateOnScreen("foundLobby.png")
+    image = pyautogui.locateOnScreen(path+"\\foundLobby.png")
     
     while image == None:
-        image = pyautogui.locateOnScreen("foundLobby.png", grayscale=True, confidence=.8)
+        image = pyautogui.locateOnScreen(path+"\\foundLobby.png", grayscale=True, confidence=.8)
 
         if cancel == True:
             break
