@@ -2,7 +2,7 @@ How to make it work:
 
 Important: Bot only works with a screen resolution of 1920x1080 (fullHD) right now!
 
-After downloading the "PAYDAY3_mm_bot_v1.zip" release:
+After downloading the code as zio:
 
 1. Install Python select the "PATH" Option at the installation progress
 2. Open cmd on your windows computer and type "pip install opencv-python", "pip install PyAutoGui" and "pip install PySimpleGui"
