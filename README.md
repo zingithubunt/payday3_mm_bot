@@ -2,7 +2,7 @@ How to make it work:
 
 Important: Bot only works with a screen resolution of 1920x1080 (fullHD) right now!
 
-After downloading the code as zio:
+After downloading the code as zip (click on "<>code" -> "download zip"):
 
 1. Install Python select the "PATH" Option at the installation progress
 2. Open cmd on your windows computer and type "pip install opencv-python", "pip install PyAutoGui" and "pip install PySimpleGui"
