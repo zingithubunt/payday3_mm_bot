@@ -6,7 +6,7 @@ After saving all the repo files in one directory:
 
 1. Download and install Python 3.10 (https://www.python.org/downloads/) select the "PATH" Option at the installation progress
 2. Open the cmd-App on your windows computer and type "pip install opencv-python", "pip install PyAutoGui" and "pip install PySimpleGui" 
-3. Start the bot.py with python 
+3. Start the bot.py with python 3.10 
 4. Start PAYDAY3 in fullscreen windowed mode
 5. Press F11 in PAYDAY to reduce the size (IMPORTANT: DO NOT MOVE THE WINDOW AFTER PRESSING F11, KEEP IT LIKE IT IS)
 6. Use the Bot and feel free to press F11 again, after you found the lobby you were looking for.
