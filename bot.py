@@ -11,6 +11,7 @@ cancel = False
 done = False
 foundPlayers = False
 foundLobby = False
+wait = False
 path = str(pathlib.Path(__file__).parent.resolve())
 
 def searchHeist(heist, difficulty):
@@ -77,9 +78,9 @@ def checkForPlayers():
     global cancel
     global foundPlayers
     count = 0
-    image = pyautogui.locateOnScreen(path+"\\noPlayers.png", grayscale=True, confidence=.8)
+    image = pyautogui.locateOnScreen(path+"\\noPlayersInLobby.png", grayscale=True, confidence=.8)
     while image == None:
-        image = pyautogui.locateOnScreen(path+"\\noPlayers.png")
+        image = pyautogui.locateOnScreen(path+"\\noPlayersInLobby.png")
         print("Players in lobby?")
         time.sleep(0.5)
         count = count+1
@@ -91,16 +92,30 @@ def checkForPlayers():
         if cancel == True:
             break
 
+    if wait is True:
+        time.sleep(30)
+        count = 0
+        image2 = pyautogui.locateOnScreen(path+"\\noPlayersInLobby.png", grayscale=True, confidence=.8)
+        while image2 == None:
+            image2 = pyautogui.locateOnScreen(path+"\\noPlayersInLobby.png")
+            print("Players in lobby?")
+            time.sleep(0.5)
+            count = count+1
+            if count>4:
+                cancel = True
+                foundPlayers = True
+                break
+
     if cancel is not True:
         pyautogui.leftClick(400,850)
         pyautogui.leftClick(920,580)
         time.sleep(2)
 
 def lobbyFound():
-    image = pyautogui.locateOnScreen(path+"\\lobbyFound.png")
+    image = pyautogui.locateOnScreen(path+"\\foundLobby.png")
     
     while image == None:
-        image = pyautogui.locateOnScreen(path+"\\lobbyFound.png", grayscale=True, confidence=.8)
+        image = pyautogui.locateOnScreen(path+"\\foundLobby.png", grayscale=True, confidence=.8)
 
         if cancel == True:
             break
@@ -110,10 +125,12 @@ def lobbyFound():
 
 def gui():
     global cancel
+    global wait
 
     layout = [
         [sg.Text("Heist:"), sg.OptionMenu(values=heists, size=20, key="-HEIST-", disabled=False)],
         [sg.Text("Difficulty:"), sg.OptionMenu(values=difficulties, size=20, key="-DIFFICULTY-", disabled=False)],
+        [sg.Checkbox("Wait 30s in empty lobbies", key="-CHECKBOX-", disabled=False, default=False)],
         [sg.Button("search", size=20, disabled=False), sg.Button("cancel", size=20, disabled=True)]
     ]
 
@@ -127,8 +144,13 @@ def gui():
 
         elif event == "search":
 
+            if values["-CHECKBOX-"] == True:
+                wait = True
+            else:
+                wait = False
             window["-HEIST-"].update(disabled=True)
             window["-DIFFICULTY-"].update(disabled=True)
+            window["-CHECKBOX-"].update(disabled=True)
             window["search"].update(disabled=True)
 
             selected_heist = values["-HEIST-"] 
@@ -152,6 +174,7 @@ def gui():
             cancel = True
             window["-HEIST-"].update(disabled=False)
             window["-DIFFICULTY-"].update(disabled=False)
+            window["-CHECKBOX-"].update(disabled=False)
             window["search"].update(disabled=False)
             window["cancel"].update(disabled=True)
 
