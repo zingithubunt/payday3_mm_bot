@@ -97,10 +97,10 @@ def checkForPlayers():
         time.sleep(2)
 
 def lobbyFound():
-    image = pyautogui.locateOnScreen(path+"\\LobbyFound.png")
+    image = pyautogui.locateOnScreen(path+"\\lobbyFound.png")
     
     while image == None:
-        image = pyautogui.locateOnScreen(path+"\\LobbyFound.png", grayscale=True, confidence=.8)
+        image = pyautogui.locateOnScreen(path+"\\lobbyFound.png", grayscale=True, confidence=.8)
 
         if cancel == True:
             break
