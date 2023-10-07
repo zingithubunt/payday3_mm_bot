@@ -77,9 +77,9 @@ def checkForPlayers():
     global cancel
     global foundPlayers
     count = 0
-    image = pyautogui.locateOnScreen(path+"\\noPlayersInLobby.png", grayscale=True, confidence=.8)
+    image = pyautogui.locateOnScreen(path+"\\noPlayers.png", grayscale=True, confidence=.8)
     while image == None:
-        image = pyautogui.locateOnScreen(path+"\\noPlayersInLobby.png")
+        image = pyautogui.locateOnScreen(path+"\\noPlayers.png")
         print("Players in lobby?")
         time.sleep(0.5)
         count = count+1
@@ -97,10 +97,10 @@ def checkForPlayers():
         time.sleep(2)
 
 def lobbyFound():
-    image = pyautogui.locateOnScreen(path+"\\foundLobby.png")
+    image = pyautogui.locateOnScreen(path+"\\LobbyFound.png")
     
     while image == None:
-        image = pyautogui.locateOnScreen(path+"\\foundLobby.png", grayscale=True, confidence=.8)
+        image = pyautogui.locateOnScreen(path+"\\LobbyFound.png", grayscale=True, confidence=.8)
 
         if cancel == True:
             break
